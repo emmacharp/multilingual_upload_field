@@ -316,19 +316,18 @@
 
 			foreach ($langs as $lc) {
 				$div = new XMLElement('div', null, array('class' => 'file tab-panel tab-'.$lc));
-				$frame = new XMLElement('span', null, array('class' => 'frame'));
 
 				$file = 'file-'.$lc;
 
 				if( $data[$file] ){
 					$filePath = $this->get('destination').'/'.$data[$file];
 
-					$frame->appendChild(
+					$div->appendChild(
 						Widget::Anchor($filePath, URL.$filePath)
 					);
 				}
 
-				$frame->appendChild(
+				$div->appendChild(
 					Widget::Input(
 						'fields'.$fieldnamePrefix.'['.$this->get('element_name').']['.$lc.']'.$fieldnamePostfix,
 						$data[$file],
@@ -336,7 +335,6 @@
 					)
 				);
 
-				$div->appendChild($frame);
 				$container->appendChild($div);
 			}
 
