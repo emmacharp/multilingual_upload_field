@@ -5,7 +5,7 @@
 			var t = $(this);
 
 			if (t.find('a').length) {
-				$('<em>' + Symphony.Language.get('Remove File') + '</em>').appendTo($('.frame', t)).click(function (event) {
+				$('<button>' + Symphony.Language.get('Remove File') + '</button>').prependTo(t).click(function (event) {
 					event.preventDefault();
 
 					var div = $(this).parent(),
