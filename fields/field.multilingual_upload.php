@@ -242,7 +242,6 @@
 			$langs = FLang::getLangs();
 
 			$wrapper->setAttribute('class', $wrapper->getAttribute('class').' field-multilingual');
-			$container = new XMLElement('div', null, array('class' => 'container'));
 
 
 			/*------------------------------------------------------------------------------------------------*/
@@ -296,19 +295,19 @@
 				}
 			}
 
-			$container->appendChild($label);
+			$wrapper->appendChild($label);
 
 			/*------------------------------------------------------------------------------------------------*/
 			/*  Tabs  */
 			/*------------------------------------------------------------------------------------------------*/
 
-			$ul = new XMLElement('ul', null, array('class' => 'tabs'));
+			$ul = new XMLElement('ul', null, array('class' => 'tabs multilingualtabs'));
 
 			foreach ($langs as $lc) {
 				$li = new XMLElement('li', $lc, array('class' => $lc));
 				$lc === $main_lang ? $ul->prependChild($li) : $ul->appendChild($li);
 			}
-			$container->appendChild($ul);
+			$wrapper->appendChild($ul);
 
 			/*------------------------------------------------------------------------------------------------*/
 			/*  Panels  */
@@ -319,14 +318,6 @@
 
 				$file = 'file-'.$lc;
 
-				if( $data[$file] ){
-					$filePath = $this->get('destination').'/'.$data[$file];
-
-					$div->appendChild(
-						Widget::Anchor($filePath, URL.$filePath)
-					);
-				}
-
 				$div->appendChild(
 					Widget::Input(
 						'fields'.$fieldnamePrefix.'['.$this->get('element_name').']['.$lc.']'.$fieldnamePostfix,
@@ -335,7 +326,15 @@
 					)
 				);
 
-				$container->appendChild($div);
+				if( $data[$file] ){
+					$filePath = $this->get('destination').'/'.$data[$file];
+
+					$div->appendChild(
+						Widget::Anchor($filePath, URL.$filePath)
+					);
+				}
+
+				$wrapper->appendChild($div);
 			}
 
 
